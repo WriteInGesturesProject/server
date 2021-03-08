@@ -1,5 +1,6 @@
 # Serveur Artiphonie
 
+![Logo Polytech](https://www.polytech-grenoble.fr/uas/polytech/LOGO/logo-polytech.png)  
 **Groupe INFO5A 2020/2021 :**  
 *Morgan Crociati*  
 *Claire Velut*  
@@ -7,6 +8,9 @@
 *Gaëtan Rival*  
 
 ## Informations Actuelles :
+![Logo Ubuntu 18.04](https://www.zupimages.net/up/20/14/gvwb.png)
+![logo Microsoft Azure](https://www.lac.co.jp/service/img/azure_integration_01.png) 
+
 * Hebergeur : VM Azure Microsoft
 * Nom Machine : ArtiphonieServer
 * Système Exploitation : Serveur Ubuntu 18.04
@@ -20,6 +24,8 @@
 ## Mise en place du serveur :  
 
 Dans notre cas, nous avons choisi comme herbergeur *Microsoft Azure* et comme système d'exploitation pour le serveur *Ubuntu version 18.04*
+
+
 
 ### Installation Serveur PostgreSQL et configuration :
 1. Installer le serveur à l'aide de la commande suivante :
