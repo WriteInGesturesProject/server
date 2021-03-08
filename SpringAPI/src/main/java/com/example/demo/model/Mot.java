@@ -1,6 +1,8 @@
 package com.example.demo.model;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,39 +27,49 @@ public class Mot {
 	
 	private String name;
 	
-	@ManyToMany()
-    private Collection<Image> image ;
+	@OneToOne
+    private Image image;
 	
-	@OneToMany(mappedBy = "mot2")
-    private List<Statistique_mot> mot2;
+	@OneToMany(mappedBy = "id.mot")
+    private Set<Statistique_mot> Statistiques_mot = new HashSet<Statistique_mot>();
+	
+    
+    
 
 	
-	public Collection<Image> getImage() {
+	public Image getImage() {
 		return image;
 	}
 
-	public void setImage(Collection<Image> image) {
+	public void setImage(Image image) {
 		this.image = image;
-	}
-
-	public List<Statistique_mot> getmot() {
-		return mot2;
-	}
-
-	public void setmot(List<Statistique_mot> mot) {
-		this.mot2 = mot;
 	}
 
 	public Mot() {
 		super();
 	}
 
-	public Mot(String name, Son son, Collection<Image> image,List <Statistique_mot> mot) {
+	public Mot(String name, Image image,Set <Statistique_mot> mot) {
 		super();
 		this.name = name;
-		this.son = son;
 		this.image = image;
-		this.mot2 = mot;
+		this.Statistiques_mot = mot;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Set<Statistique_mot> getStatistiques_mot() {
+		return Statistiques_mot;
+	}
+
+	public void setStatistiques_mot(Set<Statistique_mot> statistiques_mot) {
+		Statistiques_mot = statistiques_mot;
 	}
 
 	public long getId() {
@@ -75,16 +87,5 @@ public class Mot {
 	public void setMot(String mot) {
 		this.name = mot;
 	}
-
-	public Son getSon() {
-		return son;
-	}
-
-	public void setSon(Son son) {
-		this.son = son;
-	}
-
-	@OneToOne
-    private Son son;
 	
 }

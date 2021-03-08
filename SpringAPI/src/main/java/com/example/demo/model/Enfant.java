@@ -1,7 +1,9 @@
 package com.example.demo.model;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,10 +23,9 @@ public class Enfant {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	
 	private long id;
-	
 
-    @OneToMany(mappedBy = "enfant2")
-    private List<Statistique_mot> enfant2;
+    @OneToMany(mappedBy = "id.enfant")
+    private Set<Statistique_mot> Statistiques_mot = new HashSet<Statistique_mot>();
 	
 	@ManyToMany()
     private Collection<Avatar> avatar ;
@@ -55,12 +56,6 @@ public class Enfant {
 	
 	private int login;
 	
-	public List<Statistique_mot> getenfant() {
-		return enfant2;
-	}
-	public void setenfant(List<Statistique_mot> enfant) {
-		this.enfant2 = enfant;
-	}
 	public Collection<Avatar> getAvatar() {
 		return avatar;
 	}
@@ -77,7 +72,7 @@ public class Enfant {
 	
 	
 	public Enfant(long id, String nom, String prenom, String sexe, int age, int id_ortho, int id_avatar, int login,
-			String password, int nb_piece,Orthophoniste ortho,Collection<Avatar> avatar,List <Statistique_mot> enfant) {
+			String password, int nb_piece,Orthophoniste ortho,Collection<Avatar> avatar,Set <Statistique_mot> stats) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -89,8 +84,14 @@ public class Enfant {
 		this.nb_piece = nb_piece;
 		this.orthophoniste = ortho;
 		this.avatar = avatar;
-		this.enfant2 = enfant;
+		this.Statistiques_mot = stats;
 		}
+	public Set<Statistique_mot> getStatistiques_mot() {
+		return Statistiques_mot;
+	}
+	public void setStatistiques_mot(Set<Statistique_mot> statistiques_mot) {
+		Statistiques_mot = statistiques_mot;
+	}
 	public int getNb_piece() {
 		return nb_piece;
 	}
