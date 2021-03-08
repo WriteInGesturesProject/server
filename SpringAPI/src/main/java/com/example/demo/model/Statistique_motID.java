@@ -3,22 +3,45 @@ package com.example.demo.model;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
-
+import javax.persistence.*;
 @Embeddable
 public class Statistique_motID implements Serializable {
-	private long mot2;
+	private static final long serialVersionUID = 1L;
+	
+	 @ManyToOne
+     @JoinColumn(name = "id_mot")
+     private Mot mot;
 
-	private long enfant2;
+	 @ManyToOne
+     @JoinColumn(name = "id_enfant")
+     private Enfant enfant;
+     
+
+	public Mot getMot() {
+		return mot;
+	}
+
+	public void setMot(Mot mot) {
+		this.mot = mot;
+	}
+
+	public Enfant getEnfant() {
+		return enfant;
+	}
+
+	public void setEnfant(Enfant enfant) {
+		this.enfant = enfant;
+	}
 
 	public int hashCode() {
-	    return (int)(enfant2 + mot2);
+	    return (int)(enfant.getId() + mot.getId());
 	  }
 
 	  public boolean equals(Object object) {
 	    if (object instanceof Statistique_motID) {
 	    	Statistique_motID otherId = (Statistique_motID) object;
-	      return (otherId.enfant2 == this.enfant2) 
-	              && (otherId.mot2 == this.mot2);
+	      return (otherId.enfant == this.enfant) 
+	              && (otherId.mot == this.mot);
 	    }
 	    return false;
 	  }
