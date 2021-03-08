@@ -3,9 +3,9 @@ package com.example.demo.repo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.model.Son;
+import com.example.demo.model.Statistique_mot;
 
 @Repository
-public interface SonRepository extends JpaRepository<Son, Long> {
+public interface Statistique_motRepository extends JpaRepository<Statistique_mot, Long> {
 
 }
