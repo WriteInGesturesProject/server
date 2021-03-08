@@ -29,6 +29,7 @@ public class Enfant {
 	
 	@ManyToMany()
     private Collection<Objet> objet ;
+	
 	@ManyToOne
     private Orthophoniste orthophoniste;
 	
@@ -47,10 +48,14 @@ public class Enfant {
 	@Column(name="age")
 	
 	private int age;
+	
+	@Column(name = "ethnicite")
+	
+	private String ethnicite;
 
-	@Column(name="id_avatar")
+	@Column(name="id_objet")
 
-	private int id_avatar;
+	private int[] id_objet;
 	
 	@Column(name="login")
 	
@@ -62,41 +67,54 @@ public class Enfant {
 	public void setAvatar(Collection<Objet> objet) {
 		this.objet = objet;
 	}
-	@Column(name="nb_piece")
+	@Column(name="nb_etoile")
 	
-	private int nb_piece;
+	private int nb_etoile;
 
 	@Column(name="password")
 
 	private String password;
 	
 	
-	public Enfant(long id, String nom, String prenom, String sexe, int age, int id_ortho, int id_avatar, int login,
-			String password, int nb_piece,Orthophoniste ortho,Collection<Objet> objet,Set <Statistique_mot> stats) {
+	public Enfant(long id, String nom, String prenom, String sexe, int age, int id_ortho, int[] id_objet, int login,
+			String password, int nb_etoile,Orthophoniste ortho,String ethnicite, Collection<Objet> objet,Set <Statistique_mot> stats) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
 		this.sexe = sexe;
 		this.age = age;
-		this.id_avatar = id_avatar;
+		this.ethnicite = ethnicite;
+		this.id_objet = id_objet;
 		this.login = login;
 		this.password = password;
-		this.nb_piece = nb_piece;
+		this.nb_etoile = nb_etoile;
 		this.orthophoniste = ortho;
 		this.objet = objet;
 		this.Statistiques_mot = stats;
 		}
+	public Collection<Objet> getObjet() {
+		return objet;
+	}
+	public void setObjet(Collection<Objet> objet) {
+		this.objet = objet;
+	}
+	public String getEthnicite() {
+		return ethnicite;
+	}
+	public void setEthnicite(String ethnicite) {
+		this.ethnicite = ethnicite;
+	}
 	public Set<Statistique_mot> getStatistiques_mot() {
 		return Statistiques_mot;
 	}
 	public void setStatistiques_mot(Set<Statistique_mot> statistiques_mot) {
 		Statistiques_mot = statistiques_mot;
 	}
-	public int getNb_piece() {
-		return nb_piece;
+	public int getNb_etoile() {
+		return nb_etoile;
 	}
-	public void setNb_piece(int nb_piece) {
-		this.nb_piece = nb_piece;
+	public void setNb_etoile(int nb_etoile) {
+		this.nb_etoile = nb_etoile;
 	}
 	public String getNom() {
 		return nom;
@@ -128,11 +146,11 @@ public class Enfant {
 	public void setOrthophoniste(Orthophoniste orthophoniste) {
 		this.orthophoniste = orthophoniste;
 	}
-	public int getId_avatar() {
-		return id_avatar;
+	public int[] getId_objet() {
+		return id_objet;
 	}
-	public void setId_avatar(int id_avatar) {
-		this.id_avatar = id_avatar;
+	public void setId_objet(int[] id_objet) {
+		this.id_objet = id_objet;
 	}
 	public int getLogin() {
 		return login;
