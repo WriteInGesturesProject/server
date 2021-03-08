@@ -28,7 +28,7 @@ public class Enfant {
     private Set<Statistique_mot> Statistiques_mot = new HashSet<Statistique_mot>();
 	
 	@ManyToMany()
-    private Collection<Avatar> avatar ;
+    private Collection<Objet> objet ;
 	@ManyToOne
     private Orthophoniste orthophoniste;
 	
@@ -56,11 +56,11 @@ public class Enfant {
 	
 	private int login;
 	
-	public Collection<Avatar> getAvatar() {
-		return avatar;
+	public Collection<Objet> getAvatar() {
+		return objet;
 	}
-	public void setAvatar(Collection<Avatar> avatar) {
-		this.avatar = avatar;
+	public void setAvatar(Collection<Objet> objet) {
+		this.objet = objet;
 	}
 	@Column(name="nb_piece")
 	
@@ -72,7 +72,7 @@ public class Enfant {
 	
 	
 	public Enfant(long id, String nom, String prenom, String sexe, int age, int id_ortho, int id_avatar, int login,
-			String password, int nb_piece,Orthophoniste ortho,Collection<Avatar> avatar,Set <Statistique_mot> stats) {
+			String password, int nb_piece,Orthophoniste ortho,Collection<Objet> objet,Set <Statistique_mot> stats) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -83,7 +83,7 @@ public class Enfant {
 		this.password = password;
 		this.nb_piece = nb_piece;
 		this.orthophoniste = ortho;
-		this.avatar = avatar;
+		this.objet = objet;
 		this.Statistiques_mot = stats;
 		}
 	public Set<Statistique_mot> getStatistiques_mot() {
