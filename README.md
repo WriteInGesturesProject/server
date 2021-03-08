@@ -17,7 +17,9 @@
 * Processeur : 1 (Virtuel)
 * RAM : 1 Gio
 
-## Mise en place du serveur :
+## Mise en place du serveur :  
+
+Dans notre cas, nous avons choisi comme herbergeur *Microsoft Azure* et comme système d'exploitation pour le serveur *Ubuntu version 18.04*
 
 ### Installation Serveur PostgreSQL et configuration :
 1. Installer le serveur à l'aide de la commande suivante :
