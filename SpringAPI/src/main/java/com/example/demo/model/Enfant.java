@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "enfant")
@@ -18,6 +21,10 @@ public class Enfant {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	
 	private long id;
+	
+
+    @OneToMany(mappedBy = "enfant2")
+    private List<Statistique_mot> enfant2;
 	
 	@ManyToMany()
     private Collection<Avatar> avatar ;
@@ -48,6 +55,18 @@ public class Enfant {
 	
 	private int login;
 	
+	public List<Statistique_mot> getenfant() {
+		return enfant2;
+	}
+	public void setenfant(List<Statistique_mot> enfant) {
+		this.enfant2 = enfant;
+	}
+	public Collection<Avatar> getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(Collection<Avatar> avatar) {
+		this.avatar = avatar;
+	}
 	@Column(name="nb_piece")
 	
 	private int nb_piece;
@@ -58,7 +77,7 @@ public class Enfant {
 	
 	
 	public Enfant(long id, String nom, String prenom, String sexe, int age, int id_ortho, int id_avatar, int login,
-			String password, int nb_piece,Orthophoniste ortho,Collection<Avatar> avatar) {
+			String password, int nb_piece,Orthophoniste ortho,Collection<Avatar> avatar,List <Statistique_mot> enfant) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -69,7 +88,8 @@ public class Enfant {
 		this.password = password;
 		this.nb_piece = nb_piece;
 		this.orthophoniste = ortho;
-		this.avatar = avatar;	
+		this.avatar = avatar;
+		this.enfant2 = enfant;
 		}
 	public int getNb_piece() {
 		return nb_piece;

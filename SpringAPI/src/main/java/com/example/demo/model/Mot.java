@@ -1,5 +1,6 @@
 package com.example.demo.model;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,8 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "mot")
@@ -18,22 +21,43 @@ public class Mot {
 	
 	private long id;
 	
-	@Column(name="mot")
+	@Column(name="name")
 	
-	private String mot;
+	private String name;
 	
 	@ManyToMany()
     private Collection<Image> image ;
 	
+	@OneToMany(mappedBy = "mot2")
+    private List<Statistique_mot> mot2;
+
+	
+	public Collection<Image> getImage() {
+		return image;
+	}
+
+	public void setImage(Collection<Image> image) {
+		this.image = image;
+	}
+
+	public List<Statistique_mot> getmot() {
+		return mot2;
+	}
+
+	public void setmot(List<Statistique_mot> mot) {
+		this.mot2 = mot;
+	}
+
 	public Mot() {
 		super();
 	}
 
-	public Mot(String mot, Son son, Collection<Image> image) {
+	public Mot(String name, Son son, Collection<Image> image,List <Statistique_mot> mot) {
 		super();
-		this.mot = mot;
+		this.name = name;
 		this.son = son;
 		this.image = image;
+		this.mot2 = mot;
 	}
 
 	public long getId() {
@@ -45,11 +69,11 @@ public class Mot {
 	}
 
 	public String getMot() {
-		return mot;
+		return name;
 	}
 
 	public void setMot(String mot) {
-		this.mot = mot;
+		this.name = mot;
 	}
 
 	public Son getSon() {
