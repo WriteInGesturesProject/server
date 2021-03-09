@@ -51,8 +51,9 @@ public class EnfantController {
 		enfant.setPrenom(enfantdetails.getPrenom());
 		enfant.setSexe(enfantdetails.getSexe());
 		enfant.setAge(enfantdetails.getAge());
-		enfant.setNb_piece(enfantdetails.getNb_piece());
-		enfant.setId_avatar(enfantdetails.getId_avatar());
+		enfant.setEthnicite(enfantdetails.getEthnicite());
+		enfant.setNb_etoile(enfantdetails.getNb_etoile());
+		enfant.setId_objet(enfantdetails.getId_objet());
 		enfant.setLogin(enfantdetails.getLogin());
 		enfant.setPassword(enfantdetails.getPassword());
 		
@@ -66,5 +67,9 @@ public class EnfantController {
 		Map <String, Boolean> map = new HashMap<>();
 		map.put("deleted", Boolean.TRUE);
 		return map;
+	}
+	@PutMapping("enfant/{id}/objet/{id}")
+	public Boolean addObjet (long EnfantID, long ObjetID) {
+		return true;
 	}
 }

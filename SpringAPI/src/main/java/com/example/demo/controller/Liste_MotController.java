@@ -47,8 +47,8 @@ public class Liste_MotController {
 			throws RessourceNotFoundException {
 		Liste_mot liste_mot = Liste_MotRepo.findById(liste_motID).orElseThrow(() -> new RessourceNotFoundException("La liste_mot n'a pas été trouvé pour cet ID ::" + liste_motID));
 		liste_mot.setNom(liste_motdetails.getNom());
-		liste_mot.setType(liste_motdetails.getType());
-		liste_mot.setActive(liste_motdetails.getActive());
+		liste_mot.setMots_utilisés(liste_motdetails.getMots_utilisés());
+		liste_mot.setNb_tentative(liste_motdetails.getNb_tentative());
 		liste_mot.setNb_mot(liste_motdetails.getNb_mot());
 		
 		return ResponseEntity.ok(this.Liste_MotRepo.save(liste_mot));

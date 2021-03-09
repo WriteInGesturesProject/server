@@ -1,7 +1,5 @@
 package com.example.demo.model;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -9,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -23,8 +20,44 @@ public class Mot {
 	
 	private long id;
 	
-	@Column(name="name")
+	@Column(name="phonetic")
 	
+	private String phonetic;
+	
+	public String getPhonetic() {
+		return phonetic;
+	}
+
+	public void setPhonetic(String phonetic) {
+		this.phonetic = phonetic;
+	}
+
+	public String getSyllableStruct() {
+		return syllableStruct;
+	}
+
+	public void setSyllableStruct(String syllableStruct) {
+		this.syllableStruct = syllableStruct;
+	}
+
+	public int getNbSyllable() {
+		return nbSyllable;
+	}
+
+	public void setNbSyllable(int nbSyllable) {
+		this.nbSyllable = nbSyllable;
+	}
+
+	@Column(name="syllableStruct")
+	
+	private String syllableStruct;
+
+	@Column(name="nSyllable")
+
+	private int nbSyllable;
+
+	@Column(name="name")
+
 	private String name;
 	
 	@OneToOne
@@ -32,10 +65,6 @@ public class Mot {
 	
 	@OneToMany(mappedBy = "id.mot")
     private Set<Statistique_mot> Statistiques_mot = new HashSet<Statistique_mot>();
-	
-    
-    
-
 	
 	public Image getImage() {
 		return image;
@@ -49,11 +78,15 @@ public class Mot {
 		super();
 	}
 
-	public Mot(String name, Image image,Set <Statistique_mot> mot) {
+	public Mot(String name, Image image,Set <Statistique_mot> mot, String phonetic,
+			 int nbSyllable, String syllableStruct) {
 		super();
 		this.name = name;
 		this.image = image;
 		this.Statistiques_mot = mot;
+		this.nbSyllable = nbSyllable;
+		this.syllableStruct = syllableStruct;
+		this.phonetic = phonetic;
 	}
 
 	public String getName() {
@@ -80,12 +113,5 @@ public class Mot {
 		this.id = id;
 	}
 
-	public String getMot() {
-		return name;
-	}
-
-	public void setMot(String mot) {
-		this.name = mot;
-	}
 	
 }

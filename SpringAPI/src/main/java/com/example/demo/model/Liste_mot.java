@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,17 +31,17 @@ public class Liste_mot {
     private Collection<Mot> mot ;
 	
 	
-	@Column(name="type")
-	
-	private String type;
-	
 	@Column(name="nb_mot")
 	
 	private int nb_mot;
 	
-	@Column(name="active")
+	@Column(name="nb_tentative")
 	
-	private int active;
+	private int nb_tentative;
+	
+	@Column(name="mots_utilisés")
+
+	private Mot[] mots_utilisés;
 	
 	@Column(name="nom")
 	
@@ -62,28 +63,12 @@ public class Liste_mot {
 		this.enfant = enfant;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	public int getNb_mot() {
 		return nb_mot;
 	}
 
 	public void setNb_mot(int nb_mot) {
 		this.nb_mot = nb_mot;
-	}
-
-	public int getActive() {
-		return active;
-	}
-
-	public void setActive(int active) {
-		this.active = active;
 	}
 
 	public String getNom() {
@@ -94,15 +79,47 @@ public class Liste_mot {
 		this.nom = nom;
 	}
 
-	public Liste_mot(Enfant enfant, String type, int nb_mot, int active, String nom,Image image) {
+	public Liste_mot(Enfant enfant, int nb_mot, String nom,Image image, Mot[] mots_utilisé, int nb_tentative) {
 		super();
 		this.enfant = enfant;
-		this.type = type;
 		this.nb_mot = nb_mot;
-		this.active = active;
 		this.nom = nom;
 		this.image = image;
+		this.nb_tentative = nb_tentative;
+		this.mots_utilisés = mots_utilisé;
 		}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+
+	public Collection<Mot> getMot() {
+		return mot;
+	}
+
+	public void setMot(Collection<Mot> mot) {
+		this.mot = mot;
+	}
+
+	public int getNb_tentative() {
+		return nb_tentative;
+	}
+
+	public void setNb_tentative(int nb_tentative) {
+		this.nb_tentative = nb_tentative;
+	}
+
+	public Mot[] getMots_utilisés() {
+		return mots_utilisés;
+	}
+
+	public void setMots_utilisés(Mot[] mots_utilisés) {
+		this.mots_utilisés = mots_utilisés;
+	}
 
 	public Liste_mot() {
 		super();
