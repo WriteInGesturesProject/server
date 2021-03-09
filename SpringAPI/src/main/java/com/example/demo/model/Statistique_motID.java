@@ -16,6 +16,8 @@ public class Statistique_motID implements Serializable {
      @JoinColumn(name = "id_enfant")
      private Enfant enfant;
      
+	 @Column
+	 private String date;
 
 	public Mot getMot() {
 		return mot;
@@ -31,6 +33,13 @@ public class Statistique_motID implements Serializable {
 
 	public void setEnfant(Enfant enfant) {
 		this.enfant = enfant;
+	}
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public int hashCode() {

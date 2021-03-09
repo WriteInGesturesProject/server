@@ -41,7 +41,7 @@ public class Liste_mot {
 	
 	@Column(name="mots_utilisés")
 
-	private List <Mot> mots_utilisés;
+	private Mot[] mots_utilisés;
 	
 	@Column(name="nom")
 	
@@ -79,7 +79,7 @@ public class Liste_mot {
 		this.nom = nom;
 	}
 
-	public Liste_mot(Enfant enfant, int nb_mot, String nom,Image image, List <Mot> mots_utilisé, int nb_tentative) {
+	public Liste_mot(Enfant enfant, int nb_mot, String nom,Image image, Mot[] mots_utilisé, int nb_tentative) {
 		super();
 		this.enfant = enfant;
 		this.nb_mot = nb_mot;
@@ -113,11 +113,11 @@ public class Liste_mot {
 		this.nb_tentative = nb_tentative;
 	}
 
-	public List<Mot> getMots_utilisés() {
+	public Mot[] getMots_utilisés() {
 		return mots_utilisés;
 	}
 
-	public void setMots_utilisés(List<Mot> mots_utilisés) {
+	public void setMots_utilisés(Mot[] mots_utilisés) {
 		this.mots_utilisés = mots_utilisés;
 	}
 

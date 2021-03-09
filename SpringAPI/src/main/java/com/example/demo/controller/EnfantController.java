@@ -68,4 +68,8 @@ public class EnfantController {
 		map.put("deleted", Boolean.TRUE);
 		return map;
 	}
+	@PutMapping("enfant/{id}/objet/{id}")
+	public Boolean addObjet (long EnfantID, long ObjetID) {
+		return true;
+	}
 }

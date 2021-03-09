@@ -25,8 +25,7 @@ import antlr.collections.List;
 public class Statistique_mot {
 		@Id
 		Statistique_motID id;
-		@Column
-		private String date;
+		
 
 		@Column(name = "nb_tentative")
 		private int nb_tentative;
@@ -34,14 +33,9 @@ public class Statistique_mot {
 		private int nb_erreur;
 		@Column(name = "commentaire")
 		private String commentaire;
-
-		public String getDate() {
-			return date;
-		}
-
-		public void setDate(String date) {
-			this.date = date;
-		}
+		
+		
+		
 
 		public int getNb_tentative() {
 			return nb_tentative;
@@ -67,10 +61,9 @@ public class Statistique_mot {
 			this.commentaire = commentaire;
 		}
 
-		public Statistique_mot(String date, int nb_tentative, int nb_erreur, 
+		public Statistique_mot( int nb_tentative, int nb_erreur, 
 				String commentaire) {
 			super();
-			this.date = date;
 			this.nb_tentative = nb_tentative;
 			this.nb_erreur = nb_erreur;
 			this.commentaire = commentaire;
