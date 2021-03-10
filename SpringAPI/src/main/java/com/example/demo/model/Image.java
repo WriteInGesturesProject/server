@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -15,17 +16,13 @@ public class Image {
 	
 	private long id;
 	
-	@Column(name="type")
-	
-	private String type;
-	
 	@Column(name="nom")
 	
 	private String nom;
 	
-	@Column(name="description")
+	@Lob()
 	
-	private String description;
+    private byte[] image;
 
 	public long getId() {
 		return id;
@@ -33,14 +30,6 @@ public class Image {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 	public String getNom() {
@@ -51,23 +40,23 @@ public class Image {
 		this.nom = nom;
 	}
 
-	public String getDescription() {
-		return description;
-	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Image(String type, String nom, String description) {
+	public Image(String type, String nom,byte[] img) {
 		super();
-		this.type = type;
 		this.nom = nom;
-		this.description = description;
+		this.image = img;
 	}
 
 	public Image() {
 		super();
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] img) {
+		this.image = img;
 	}
 	
 	
