@@ -1,10 +1,15 @@
 package com.example.demo.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,6 +19,12 @@ public class Orthophoniste {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	
 	private long id;
+	
+	//@OneToMany
+	//@JoinColumn(name="id_orthophoniste")
+	//private Set<> filmsRealises = new HashSet<Film>();
+	//public void addFilmsRealise(Film f) {filmsRealises.add(f) ;}
+	//public Set<Film> getFilmsRealises() {return filmsRealises;}
 	
 	@Column(name="nom")
 	
