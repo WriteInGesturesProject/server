@@ -1,7 +1,11 @@
 package com.example.demo.controller;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,16 +42,19 @@ public class ImageController {
 		return ResponseEntity.ok().body(image);
 	}
 	@PostMapping("image")
-	public Image createImage(@RequestBody Image image) {
+	public Image createImage(@RequestBody File file) throws IOException {
+		Image image = new Image();
+	    image.setNom(file.getName().substring(0, file.getName() .lastIndexOf(".")));
+	    image.setMimeType(file.getName().substring(file.getName() .lastIndexOf(".")+1));
+	    image.setImage(ImageIO.read(file));
 		return this.imageRepo.save(image);
 	}
 	@PutMapping("image/{id}")
 	public ResponseEntity<Image> updateImage(@PathVariable(value = "id") Long imageID, @Validated @RequestBody Image imagedetails)
 			throws RessourceNotFoundException {
 		Image image = imageRepo.findById(imageID).orElseThrow(() -> new RessourceNotFoundException("L'image n'a pas été trouvé pour cet ID ::" + imageID));
-		image.setNom(imagedetails.getNom());
-		image.setImage(imagedetails.getImage());
 		
+			
 		
 		return ResponseEntity.ok(this.imageRepo.save(image));
 		

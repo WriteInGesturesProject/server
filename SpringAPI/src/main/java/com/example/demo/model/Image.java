@@ -1,5 +1,11 @@
 package com.example.demo.model;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +29,17 @@ public class Image {
 	@Lob()
 	
     private byte[] image;
+	
+	@Column(name="mime_type")
+    private String mimeType;
+
+	public String getMimeType() {
+		return mimeType;
+	}
+
+	public void setMimeType(String mimeType) {
+		this.mimeType = mimeType;
+	}
 
 	public long getId() {
 		return id;
@@ -41,10 +58,11 @@ public class Image {
 	}
 
 
-	public Image(String type, String nom,byte[] img) {
+	public Image(String type, String nom,byte[] img,String mimeType) {
 		super();
 		this.nom = nom;
 		this.image = img;
+		this.mimeType = mimeType;
 	}
 
 	public Image() {
@@ -55,9 +73,15 @@ public class Image {
 		return image;
 	}
 
-	public void setImage(byte[] img) {
-		this.image = img;
+	public void setImage(BufferedImage bufferedImage) throws IOException {
+	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    ImageIO.write(bufferedImage,mimeType.split("image/")[1], baos);
+	    baos.flush();
+	    this.image = baos.toByteArray();
+	    baos.close();
 	}
+	
+	
 	
 	
 }
