@@ -13,11 +13,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.example.demo.Exception.RessourceNotFoundException;
 import com.example.demo.repo.ImageRepository;
 import com.example.demo.model.Image;
@@ -30,23 +34,30 @@ public class ImageController {
 	private ImageRepository imageRepo;
 	
 	@GetMapping("image")
-	public List<Image> getAllImage(){
-		return this.imageRepo.findAll();
+	public byte[] getAllImage(){
+		return this.imageRepo.findAll().get(0).getImage();
 		
 	}
 	@GetMapping("image/{id}")
-	public ResponseEntity<Image> getImageByID(@PathVariable(value = "id") Long imageID)
+	public ResponseEntity<byte[]> getImageByID(@PathVariable(value = "id") Long imageID)
 			throws RessourceNotFoundException {
 		
 		Image image = imageRepo.findById(imageID).orElseThrow(() -> new RessourceNotFoundException("L'image n'a pas été trouvé pour cet ID ::" + imageID));
-		return ResponseEntity.ok().body(image);
+		return ResponseEntity.ok().body(image.getImage());
 	}
 	@PostMapping("image")
-	public Image createImage(@RequestBody File file) throws IOException {
+	public Image createImage(@RequestParam("file") MultipartFile  file) throws IOException {
 		Image image = new Image();
-	    image.setNom(file.getName().substring(0, file.getName() .lastIndexOf(".")));
-	    image.setMimeType(file.getName().substring(file.getName() .lastIndexOf(".")+1));
-	    image.setImage(ImageIO.read(file));
+		System.out.println("1");
+		System.out.println(file.getOriginalFilename());
+	    image.setNom(file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf(".")));
+	    System.out.println("2");
+	    String tmp = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+	    System.out.println("2.5");
+	    image.setMimeType(tmp);
+	    System.out.println("3");
+	    image.setImage(file.getBytes());
+	    System.out.println("4");
 		return this.imageRepo.save(image);
 	}
 	@PutMapping("image/{id}")

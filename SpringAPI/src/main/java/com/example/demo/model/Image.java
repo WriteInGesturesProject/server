@@ -73,12 +73,8 @@ public class Image {
 		return image;
 	}
 
-	public void setImage(BufferedImage bufferedImage) throws IOException {
-	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	    ImageIO.write(bufferedImage,mimeType.split("image/")[1], baos);
-	    baos.flush();
-	    this.image = baos.toByteArray();
-	    baos.close();
+	public void setImage(byte[] byteArray){
+		this.image = byteArray;
 	}
 	
 	
