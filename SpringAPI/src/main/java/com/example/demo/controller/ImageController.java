@@ -46,8 +46,8 @@ public class ImageController {
 			throws RessourceNotFoundException {
 		Image image = imageRepo.findById(imageID).orElseThrow(() -> new RessourceNotFoundException("L'image n'a pas été trouvé pour cet ID ::" + imageID));
 		image.setNom(imagedetails.getNom());
-		image.setType(imagedetails.getType());
-		image.setDescription(imagedetails.getDescription());
+		image.setImage(imagedetails.getImage());
+		
 		
 		return ResponseEntity.ok(this.imageRepo.save(image));
 		
