@@ -44,10 +44,6 @@ public class MotController {
 	public ResponseEntity<Mot> updateMot(@PathVariable(value = "id") Long motID, @Validated @RequestBody Mot motdetails)
 			throws RessourceNotFoundException {
 		Mot mot = motRepo.findById(motID).orElseThrow(() -> new RessourceNotFoundException("Le mot n'a pas été trouvé pour cet ID ::" + motID));
-		mot.setName(motdetails.getName());
-		mot.setNbSyllable(motdetails.getNbSyllable());
-		mot.setSyllableStruct(motdetails.getSyllableStruct());
-		mot.setPhonetic(motdetails.getPhonetic());
 		
 		return ResponseEntity.ok(this.motRepo.save(mot));
 		
