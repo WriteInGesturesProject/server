@@ -29,6 +29,9 @@ public class MotController {
 		return this.motRepo.findAll();
 		
 	}
+	//get mot renvoi tous les mots qui s'ecrivent pareil
+	//get String et on renvoi phonetic ( 1 seul mot car meme phonetic) 
+	//get renvoi liste de mot 
 	@GetMapping("mot/{id}")
 	public ResponseEntity<Mot> getMotByID(@PathVariable(value = "id") Long motID)
 			throws RessourceNotFoundException {

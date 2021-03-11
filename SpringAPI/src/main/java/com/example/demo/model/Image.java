@@ -22,7 +22,7 @@ public class Image {
 	
 	private long id;
 	
-	@Column(name="nom")
+	@Id
 	
 	private String nom;
 	
@@ -76,7 +76,9 @@ public class Image {
 	public void setImage(byte[] byteArray){
 		this.image = byteArray;
 	}
-	
+	public boolean equalName(String name) {
+		return this.getNom() == name;
+	}
 	
 	
 	
