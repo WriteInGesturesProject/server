@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -20,12 +21,16 @@ public class Orthophoniste {
 	
 	private long id;
 	
-	//@OneToMany
-	//@JoinColumn(name="id_orthophoniste")
-	//private Set<> filmsRealises = new HashSet<Film>();
-	//public void addFilmsRealise(Film f) {filmsRealises.add(f) ;}
-	//public Set<Film> getFilmsRealises() {return filmsRealises;}
+	@OneToMany(mappedBy = "orthophoniste")
+	private Set<Enfant> enfants = new HashSet<Enfant>();
 	
+	public Set<Enfant> getEnfants() {
+		return enfants;
+	}
+	public void setEnfants(Set<Enfant> enfants) {
+		this.enfants = enfants;
+	}
+
 	@Column(name="nom")
 	
 	private String nom;
