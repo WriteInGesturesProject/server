@@ -39,6 +39,13 @@ public class EnfantController {
 		Enfant enfant = enfantRepo.findById(enfantID).orElseThrow(() -> new RessourceNotFoundException("L'enfant n'a pas été trouvé pour cet ID ::" + enfantID));
 		return ResponseEntity.ok().body(enfant);
 	}
+	@GetMapping("enfant/ortho/{id}")
+	public String getEnfantOrtho(@PathVariable(value = "id") Long enfantID)
+			throws RessourceNotFoundException {
+		
+		Enfant enfant = enfantRepo.findById(enfantID).orElseThrow(() -> new RessourceNotFoundException("L'enfant n'a pas été trouvé pour cet ID ::" + enfantID));
+		return enfant.getOrthophoniste().getNom();
+	}
 	@PostMapping("enfant")
 	public Enfant createEnfant(@RequestBody Enfant enfant) {
 		return this.enfantRepo.save(enfant);

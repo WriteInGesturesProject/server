@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Exception.RessourceNotFoundException;
 import com.example.demo.repo.OrthophonisteRepository;
+import com.example.demo.model.Enfant;
+import com.example.demo.model.Mot;
 import com.example.demo.model.Orthophoniste;
 
 @RestController
@@ -51,6 +55,14 @@ public class OrthophonisteController {
 		orthophoniste.setEmail(orthophonistedetails.getEmail());
 		orthophoniste.setLogin(orthophonistedetails.getLogin());
 		orthophoniste.setPassword(orthophonistedetails.getPassword());
+		Enfant enfant;
+		Set<Enfant> enfants = orthophonistedetails.getEnfants();
+		Iterator<Enfant> iter = enfants.iterator();
+		while (iter.hasNext()) {
+			enfant =iter.next();
+			orthophoniste.addEnfant(enfant);
+		}
+		
 		
 		return ResponseEntity.ok(this.orthophonisteRepo.save(orthophoniste));
 		
