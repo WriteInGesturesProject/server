@@ -84,7 +84,7 @@ public class Enfant {
 		this.login = login;
 		this.password = password;
 		this.nb_etoile = nb_etoile;
-		this.orthophoniste = ortho;
+		this.orthophoniste = id_ortho;
 		this.objet = objet;
 		this.Statistiques_mot = stats;
 		}
