@@ -72,7 +72,7 @@ public class Enfant {
 	private String password;
 	
 	
-	public Enfant(long id, String nom, String prenom, String sexe, int age, int id_ortho, int[] id_objet, int login,
+	public Enfant(long id, String nom, String prenom, String sexe, int age, int[] id_objet, int login,
 			String password, int nb_etoile,Orthophoniste ortho,String ethnicite, Collection<Objet> objet,Set <Statistique_mot> stats) {
 		super();
 		this.nom = nom;
@@ -84,7 +84,7 @@ public class Enfant {
 		this.login = login;
 		this.password = password;
 		this.nb_etoile = nb_etoile;
-		this.orthophoniste = id_ortho;
+		this.orthophoniste = ortho;
 		this.objet = objet;
 		this.Statistiques_mot = stats;
 		}
