@@ -22,7 +22,7 @@ public class Image {
 	
 	private long id;
 	
-	@Id
+	@Column(name ="name")
 	
 	private String nom;
 	

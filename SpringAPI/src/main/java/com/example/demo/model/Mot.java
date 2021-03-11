@@ -145,4 +145,7 @@ public class Mot {
 	public Mot() {
 		super();
 	}
+	public boolean equalName(String name) {
+		return this.getOrtho() == name;
+	}
 }

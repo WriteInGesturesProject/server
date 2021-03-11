@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Exception.RessourceNotFoundException;
 import com.example.demo.repo.MotRepository;
+import com.example.demo.model.Image;
 import com.example.demo.model.Mot;
 
 @RestController
@@ -29,16 +31,40 @@ public class MotController {
 		return this.motRepo.findAll();
 		
 	}
-	//get mot renvoi tous les mots qui s'ecrivent pareil
-	//get String et on renvoi phonetic ( 1 seul mot car meme phonetic) 
-	//get renvoi liste de mot 
-	@GetMapping("mot/{id}")
-	public ResponseEntity<Mot> getMotByID(@PathVariable(value = "id") Long motID)
+	
+	@GetMapping("mot/{name}")
+	public Mot[] getMotByName(@PathVariable(value = "name") String motName)
 			throws RessourceNotFoundException {
-		
-		Mot mot = motRepo.findById(motID).orElseThrow(() -> new RessourceNotFoundException("Le mot n'a pas été trouvé pour cet ID ::" + motID));
-		return ResponseEntity.ok().body(mot);
+		List<Mot> List = this.motRepo.findAll();
+		Mot mot;
+		int i=0;
+		Mot[] tab = new Mot[List.size()];
+		Iterator<Mot> iter = List.iterator();
+		while (iter.hasNext()) {
+			 mot = iter.next();
+			if (mot.equalName(motName)) {
+				tab[i] = mot;
+				i++;
+			}
+		}
+		return(tab);
 	}
+	
+	@GetMapping("mot/phonetic/{name}")
+	public String getMotPhoneticByName(@PathVariable(value = "name") String motName)
+			throws RessourceNotFoundException {
+		List<Mot> List = this.motRepo.findAll();
+		Mot mot;
+		Iterator<Mot> iter = List.iterator();
+		while (iter.hasNext()) {
+			 mot = iter.next();
+			if (mot.equalName(motName)) {
+				return mot.getPhon(); 
+			}
+		}
+		return(null);
+	}
+	
 	@PostMapping("mot")
 	public Mot createMot(@RequestBody Mot mot) {
 		return this.motRepo.save(mot);
