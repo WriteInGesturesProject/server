@@ -1,10 +1,17 @@
 package com.example.demo.model;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -15,17 +22,24 @@ public class Image {
 	
 	private long id;
 	
-	@Column(name="type")
-	
-	private String type;
-	
 	@Column(name="nom")
 	
 	private String nom;
 	
-	@Column(name="description")
+	@Lob()
 	
-	private String description;
+    private byte[] image;
+	
+	@Column(name="mime_type")
+    private String mimeType;
+
+	public String getMimeType() {
+		return mimeType;
+	}
+
+	public void setMimeType(String mimeType) {
+		this.mimeType = mimeType;
+	}
 
 	public long getId() {
 		return id;
@@ -33,14 +47,6 @@ public class Image {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 	public String getNom() {
@@ -51,24 +57,27 @@ public class Image {
 		this.nom = nom;
 	}
 
-	public String getDescription() {
-		return description;
-	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Image(String type, String nom, String description) {
+	public Image(String type, String nom,byte[] img,String mimeType) {
 		super();
-		this.type = type;
 		this.nom = nom;
-		this.description = description;
+		this.image = img;
+		this.mimeType = mimeType;
 	}
 
 	public Image() {
 		super();
 	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] byteArray){
+		this.image = byteArray;
+	}
+	
+	
 	
 	
 }
