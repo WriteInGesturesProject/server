@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
-@Entity
+@Entity	
 @Table(name = "image")
 public class Image {
 	@Id
@@ -22,7 +22,7 @@ public class Image {
 	
 	private long id;
 	
-	@Column(name ="name")
+	@Column(name ="nom")
 	
 	private String nom;
 	

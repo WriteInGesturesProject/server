@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,22 +34,14 @@ import com.example.demo.model.Image;
 public class ImageController {
 	@Autowired
 	private ImageRepository imageRepo;
-
-	@GetMapping("image/{name}")
-	public byte[] getImageByName(@PathVariable(value = "nom") String imageName) throws RessourceNotFoundException {
-		List<Image> Img = this.imageRepo.findAll();
-		Image image;
-		Iterator<Image> iter = Img.iterator();
-		while (iter.hasNext()) {
-			image = iter.next();
-			if (image.equalName(imageName)) {
-				return image.getImage();
-			}
-		}
-		return(null);
+	
+	@Transactional 
+	@GetMapping("image/name/{nom}")
+	public byte[] getImageByName(@PathVariable(value = "nom") String nom) throws RessourceNotFoundException {
+		return this.imageRepo.findImageByName(nom).getImage();
 
 	}
-		//Pas deux img de meme nom
+	
 	@PostMapping("image")
 	public Image createImage(@RequestParam("file") MultipartFile file) throws IOException {
 		Image image = new Image();

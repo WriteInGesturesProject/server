@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Exception.RessourceNotFoundException;
 import com.example.demo.repo.MotRepository;
-import com.example.demo.model.Image;
 import com.example.demo.model.Mot;
 
 @RestController
@@ -33,36 +32,16 @@ public class MotController {
 	}
 	
 	@GetMapping("mot/{name}")
-	public Mot[] getMotByName(@PathVariable(value = "name") String motName)
+	public List <Mot> getMotByName(@PathVariable(value = "name") String motName)
 			throws RessourceNotFoundException {
-		List<Mot> List = this.motRepo.findAll();
-		Mot mot;
-		int i=0;
-		Mot[] tab = new Mot[List.size()];
-		Iterator<Mot> iter = List.iterator();
-		while (iter.hasNext()) {
-			 mot = iter.next();
-			if (mot.equalName(motName)) {
-				tab[i] = mot;
-				i++;
-			}
-		}
-		return(tab);
+		return this.motRepo.findMotByOrtho(motName);
 	}
 	
 	@GetMapping("mot/phonetic/{name}")
 	public String getMotPhoneticByName(@PathVariable(value = "name") String motName)
 			throws RessourceNotFoundException {
-		List<Mot> List = this.motRepo.findAll();
-		Mot mot;
-		Iterator<Mot> iter = List.iterator();
-		while (iter.hasNext()) {
-			 mot = iter.next();
-			if (mot.equalName(motName)) {
-				return mot.getPhon(); 
-			}
-		}
-		return(null);
+		List <Mot> Mots = this.motRepo.findMotByOrtho(motName);
+		return Mots.get(0).getPhon();
 	}
 	
 	@PostMapping("mot")
