@@ -35,7 +35,14 @@ public class OrthophonisteController {
 		return this.orthophonisteRepo.findAll();
 
 	}
+	
+	@GetMapping("orthophoniste/enfant/{name}")
+	public List <Enfant> getEnfantsByName(@PathVariable(value = "name") String name)
+			throws RessourceNotFoundException {
+		return this.orthophonisteRepo.getNameOrtho(name).getEnfants();
 
+	}
+	
 	@GetMapping("orthophoniste/name/{name}")
 	public Orthophoniste getOrthophonisteByName(@PathVariable(value = "name") String name)
 			throws RessourceNotFoundException {
@@ -69,13 +76,6 @@ public class OrthophonisteController {
 		orthophoniste.setEmail(orthophonistedetails.getEmail());
 		orthophoniste.setLogin(orthophonistedetails.getLogin());
 		orthophoniste.setPassword(orthophonistedetails.getPassword());
-		Enfant enfant;
-		Set<Enfant> enfants = orthophonistedetails.getEnfants();
-		Iterator<Enfant> iter = enfants.iterator();
-		while (iter.hasNext()) {
-			enfant = iter.next();
-			orthophoniste.addEnfant(enfant);
-		}
 
 		return ResponseEntity.ok(this.orthophonisteRepo.save(orthophoniste));
 

@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Exception.RessourceNotFoundException;
 import com.example.demo.repo.EnfantRepository;
+import com.example.demo.repo.OrthophonisteRepository;
 import com.example.demo.model.Enfant;
-
+import com.example.demo.model.Orthophoniste;
+import com.example.demo.controller.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -27,6 +29,8 @@ public class EnfantController {
 	@Autowired
 	private EnfantRepository enfantRepo;
 	
+	@Autowired
+	private OrthophonisteRepository OrthoRepo;
 	@GetMapping("enfant")
 	public List<Enfant> getAllEnfant(){
 		return this.enfantRepo.findAll();
@@ -40,11 +44,13 @@ public class EnfantController {
 		return ResponseEntity.ok().body(enfant);
 	}
 	@GetMapping("enfant/ortho/{id}")
-	public String getEnfantOrtho(@PathVariable(value = "id") Long enfantID)
+	public Orthophoniste getEnfantOrtho(@PathVariable(value = "id") Long enfantID)
 			throws RessourceNotFoundException {
 		
 		Enfant enfant = enfantRepo.findById(enfantID).orElseThrow(() -> new RessourceNotFoundException("L'enfant n'a pas été trouvé pour cet ID ::" + enfantID));
-		return enfant.getOrthophoniste().getNom();
+		long id = enfant.getOrthophoniste();
+		return OrthoRepo.findById(id).orElseThrow(() -> new RessourceNotFoundException("L'orthophoniste n'a pas été trouvé pour cet ID ::" + id));
+		
 	}
 	@PostMapping("enfant")
 	public Enfant createEnfant(@RequestBody Enfant enfant) {

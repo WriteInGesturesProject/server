@@ -32,7 +32,7 @@ public class Enfant {
     private Collection<Objet> objet ;
 	
 	@ManyToOne 
-	@JoinColumn(name = "id_orthophoniste")
+	//@JoinColumn(name = "id_orthophoniste")
     private Orthophoniste orthophoniste;
 	
 	@Column(name="nom")
@@ -84,6 +84,7 @@ public class Enfant {
 		this.login = login;
 		this.password = password;
 		this.nb_etoile = nb_etoile;
+		ortho.addEnfant(this);
 		this.orthophoniste = ortho;
 		this.objet = objet;
 		this.Statistiques_mot = stats;
@@ -136,8 +137,8 @@ public class Enfant {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public Orthophoniste getOrthophoniste() {
-		return orthophoniste;
+	public long getOrthophoniste() {
+		return orthophoniste.getId();
 	}
 	public void setOrthophoniste(Orthophoniste orthophoniste) {
 		this.orthophoniste = orthophoniste;

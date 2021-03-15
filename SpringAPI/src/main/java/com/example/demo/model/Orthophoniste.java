@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -21,15 +22,14 @@ public class Orthophoniste {
 	
 	private long id;
 	
-	@OneToMany
-	@JoinColumn(name="orthophoniste")
-	private Set<Enfant> enfants = new HashSet<Enfant>();
+	@OneToMany(mappedBy="orthophoniste")
+	private List<Enfant> enfants;
 	
 	public void addEnfant(Enfant enfant) {
 		enfant.setOrthophoniste(this);
 		enfants.add(enfant) ;}
 	
-	public Set<Enfant> getEnfants() {return enfants;}
+	public List<Enfant> getEnfants() {return enfants;}
 	
 	@Column(name="nom")
 	
@@ -49,9 +49,9 @@ public class Orthophoniste {
 	
 	@Column(name="email")
 	
-	private int email;
+	private String email;
 
-	public Orthophoniste(long id, String nom, String prenom, String login, int password, int email) {
+	public Orthophoniste(long id, String nom, String prenom, String login, int password, String email) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -103,11 +103,11 @@ public class Orthophoniste {
 		this.password = password;
 	}
 
-	public int getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(int email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
