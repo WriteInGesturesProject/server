@@ -36,6 +36,32 @@ public class EnfantController {
 		return this.enfantRepo.findAll();
 		
 	}
+	
+	@GetMapping("enfant/connexion/{login}/{password}")
+	public ResponseEntity<Enfant> getEnfantConnection(@PathVariable(value = "login") String login,@PathVariable(value = "password") String password)
+			throws RessourceNotFoundException {
+		Enfant enfant = this.enfantRepo.getLoginEnfant(login);
+		if(enfant.getPassword().equals(password)) {
+			return ResponseEntity.ok().body(enfant);
+		}
+		return null;
+	}
+	
+	
+	@GetMapping("enfant/name/{name}")
+	public Enfant getEnfantByName(@PathVariable(value = "name") String name)
+			throws RessourceNotFoundException {
+		return this.enfantRepo.getNameEnfant(name);
+
+	}
+	
+	@GetMapping("enfant/login/{login}")
+	public Enfant getEnfantByLogin(@PathVariable(value = "login") String login)
+			throws RessourceNotFoundException {
+		return this.enfantRepo.getLoginEnfant(login);
+
+	}
+	
 	@GetMapping("enfant/{id}")
 	public ResponseEntity<Enfant> getEnfantByID(@PathVariable(value = "id") Long enfantID)
 			throws RessourceNotFoundException {

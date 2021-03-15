@@ -36,6 +36,16 @@ public class OrthophonisteController {
 
 	}
 	
+	@GetMapping("orthophoniste/connexion/{login}/{password}")
+	public ResponseEntity<Orthophoniste> getOrthophonisteConnection(@PathVariable(value = "login") String login,@PathVariable(value = "password") String password)
+			throws RessourceNotFoundException {
+		Orthophoniste ortho = this.orthophonisteRepo.getLoginOrtho(login);
+		if(ortho.getPassword().contentEquals(password)) {
+			return ResponseEntity.ok().body(ortho);
+		}
+		return null;
+	}
+	
 	@GetMapping("orthophoniste/enfant/{name}")
 	public List <Enfant> getEnfantsByName(@PathVariable(value = "name") String name)
 			throws RessourceNotFoundException {
@@ -47,6 +57,13 @@ public class OrthophonisteController {
 	public Orthophoniste getOrthophonisteByName(@PathVariable(value = "name") String name)
 			throws RessourceNotFoundException {
 		return this.orthophonisteRepo.getNameOrtho(name);
+
+	}
+	
+	@GetMapping("orthophoniste/login/{login}")
+	public Orthophoniste getOrthophonisteByLogin(@PathVariable(value = "login") String login)
+			throws RessourceNotFoundException {
+		return this.orthophonisteRepo.getLoginOrtho(login);
 
 	}
 

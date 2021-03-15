@@ -16,4 +16,7 @@ public interface OrthophonisteRepository extends JpaRepository<Orthophoniste, Lo
 
 		@Query("Select u From Orthophoniste u where u.nom = ?1 ")
 		public Orthophoniste getNameOrtho(String name);
+		
+		@Query("Select u From Orthophoniste u where u.login = ?1 ")
+		public Orthophoniste getLoginOrtho(String name);
 }

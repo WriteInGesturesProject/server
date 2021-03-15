@@ -45,13 +45,13 @@ public class Orthophoniste {
 	
 	@Column(name="password")
 	
-	private int password;
+	private String password;
 	
 	@Column(name="email")
 	
 	private String email;
 
-	public Orthophoniste(long id, String nom, String prenom, String login, int password, String email) {
+	public Orthophoniste(long id, String nom, String prenom, String login, String password, String email) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -95,11 +95,11 @@ public class Orthophoniste {
 		this.login = login;
 	}
 
-	public int getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(int password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 

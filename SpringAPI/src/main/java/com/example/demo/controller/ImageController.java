@@ -41,7 +41,7 @@ public class ImageController {
 		return this.imageRepo.findImageByName(nom).getImage();
 
 	}
-	
+	@Transactional 
 	@PostMapping("image")
 	public Image createImage(@RequestParam("file") MultipartFile file) throws IOException {
 		Image image = new Image();
@@ -50,6 +50,10 @@ public class ImageController {
 		String tmp = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
 		image.setMimeType(tmp);
 		image.setImage(file.getBytes());
+		Image img = this.imageRepo.findImageByName(image.getNom());
+		if(img != null ) {
+			return null;
+		}
 		return this.imageRepo.save(image);
 	}
 

@@ -61,7 +61,7 @@ public class Enfant {
 	
 	@Column(name="login")
 	
-	private int login;
+	private String login;
 	
 	@Column(name="nb_etoile")
 	
@@ -72,7 +72,7 @@ public class Enfant {
 	private String password;
 	
 	
-	public Enfant(long id, String nom, String prenom, String sexe, int age, int id_ortho, int[] id_objet, int login,
+	public Enfant(long id, String nom, String prenom, String sexe, int age, int id_ortho, int[] id_objet, String login,
 			String password, int nb_etoile,Orthophoniste ortho,String ethnicite, Collection<Objet> objet,Set <Statistique_mot> stats) {
 		super();
 		this.nom = nom;
@@ -149,10 +149,10 @@ public class Enfant {
 	public void setId_objet(int[] id_objet) {
 		this.id_objet = id_objet;
 	}
-	public int getLogin() {
+	public String getLogin() {
 		return login;
 	}
-	public void setLogin(int login) {
+	public void setLogin(String login) {
 		this.login = login;
 	}
 	public String getPassword() {
