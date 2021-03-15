@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -30,7 +31,8 @@ public class Enfant {
 	@ManyToMany()
     private Collection<Objet> objet ;
 	
-	@ManyToOne
+	@ManyToOne 
+	@JoinColumn(name = "id_orthophoniste")
     private Orthophoniste orthophoniste;
 	
 	@Column(name="nom")
@@ -61,12 +63,6 @@ public class Enfant {
 	
 	private int login;
 	
-	public Collection<Objet> getAvatar() {
-		return objet;
-	}
-	public void setAvatar(Collection<Objet> objet) {
-		this.objet = objet;
-	}
 	@Column(name="nb_etoile")
 	
 	private int nb_etoile;
@@ -76,7 +72,7 @@ public class Enfant {
 	private String password;
 	
 	
-	public Enfant(long id, String nom, String prenom, String sexe, int age, int id_ortho, int[] id_objet, int login,
+	public Enfant(long id, String nom, String prenom, String sexe, int age, int[] id_objet, int login,
 			String password, int nb_etoile,Orthophoniste ortho,String ethnicite, Collection<Objet> objet,Set <Statistique_mot> stats) {
 		super();
 		this.nom = nom;
