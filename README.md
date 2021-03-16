@@ -101,4 +101,10 @@ Deux possibilitées :
         security.require-ssl=true
  
  4. S'assurer que l'accès au site est bien en HTTPS
-       
+
+### Objectifs :
+- API (*DONE*)
+- BDD (*DONE*)
+- HTTPS (*DONE*)
+- RGPD (**TO DO**)
+- Cryptage BDD (**TO DO**)
