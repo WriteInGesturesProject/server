@@ -16,7 +16,7 @@
 * Système Exploitation : Serveur Ubuntu 18.04
 * Adresse Publique : **51.124.109.83**
 * Port HTTPS : **8443**
-* DNS : Pas défini
+* DNS : **artiphonie.westeurope.cloudapp.azure.com**
 * Taille : Standard B1s
 * Processeur : 1 (Virtuel)
 * RAM : 1 Gio
