@@ -57,3 +57,10 @@ Dans notre cas, nous avons choisi comme herbergeur *Microsoft Azure* et comme sy
     
     **Informations complémentaires :**  
     Il est possible qu'il vous manque le JDK compatible avec l'application, pour cela nous avons codé l'API sous JAVA 11 donc installer le **JDK 11** sur le serveur à l'aide du lien suivant : https://doc.ubuntu-fr.org/openjdk
+
+### Objectifs :
+- API (*DONE*)
+- BDD (*DONE*)
+- HTTPS (*DONE*)
+- RGPD (**TO DO**)
+- Cryptage BDD (**TO DO**)
