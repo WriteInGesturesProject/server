@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +27,6 @@ public class MotController {
 	@GetMapping("mot")
 	public List<Mot> getAllMot(){
 		return this.motRepo.findAll();
-		
 	}
 	
 	@GetMapping("mot/{name}")
@@ -52,7 +50,14 @@ public class MotController {
 	public ResponseEntity<Mot> updateMot(@PathVariable(value = "id") Long motID, @Validated @RequestBody Mot motdetails)
 			throws RessourceNotFoundException {
 		Mot mot = motRepo.findById(motID).orElseThrow(() -> new RessourceNotFoundException("Le mot n'a pas été trouvé pour cet ID ::" + motID));
-		
+		mot.setOrtho(motdetails.getOrtho());
+		mot.setPhon(motdetails.getPhon());
+		mot.setCgram(motdetails.getCgram());
+		mot.setFreqfilms2(motdetails.getFreqfilms2());
+		mot.setNbphons(motdetails.getNbphons());
+		mot.setP_cvcv(motdetails.getP_cvcv());
+		mot.setNbsyll(motdetails.getNbsyll());
+		mot.setImage(motdetails.getImage());
 		return ResponseEntity.ok(this.motRepo.save(mot));
 		
 	}

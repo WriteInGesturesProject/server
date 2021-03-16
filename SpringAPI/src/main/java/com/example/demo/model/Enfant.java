@@ -5,12 +5,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -29,10 +29,9 @@ public class Enfant {
     private Set<Statistique_mot> Statistiques_mot = new HashSet<Statistique_mot>();
 	
 	@ManyToMany()
-    private Collection<Objet> objet ;
+    private List<Objet> objet ;
 	
-	@ManyToOne 
-	//@JoinColumn(name = "id_orthophoniste")
+	@ManyToOne ()
     private Orthophoniste orthophoniste;
 	
 	@Column(name="nom")
@@ -72,8 +71,8 @@ public class Enfant {
 	private String password;
 	
 	
-	public Enfant(long id, String nom, String prenom, String sexe, int age, int id_ortho, int[] id_objet, String login,
-			String password, int nb_etoile,Orthophoniste ortho,String ethnicite, Collection<Objet> objet,Set <Statistique_mot> stats) {
+	public Enfant(long id, String nom, String prenom, String sexe, int age, int[] id_objet, String login,
+			String password, int nb_etoile,Orthophoniste ortho,String ethnicite, List<Objet> objet) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -87,12 +86,11 @@ public class Enfant {
 		ortho.addEnfant(this);
 		this.orthophoniste = ortho;
 		this.objet = objet;
-		this.Statistiques_mot = stats;
 		}
-	public Collection<Objet> getObjet() {
+	public List<Objet> getObjet() {
 		return objet;
 	}
-	public void setObjet(Collection<Objet> objet) {
+	public void setObjet(List<Objet> objet) {
 		this.objet = objet;
 	}
 	public String getEthnicite() {

@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -42,14 +41,14 @@ public class Mot {
 	@Column(name="nbsyll")
 	private int nbsyll;
 	
-	@OneToOne
-    private Image image;
+	@Column(name="image")
+    private String image;
 	
 	@OneToMany(mappedBy = "id.mot")
     private Set<Statistique_mot> Statistiques_mot = new HashSet<Statistique_mot>();
 
 	public Mot(String ortho, String phon, String cgram, float freqfilms2, int nbphons, String p_cvcv, int nbsyll,
-			Image image, Set<Statistique_mot> statistiques_mot) {
+			String image) {
 		super();
 		this.ortho = ortho;
 		this.phon = phon;
@@ -59,7 +58,6 @@ public class Mot {
 		this.p_cvcv = p_cvcv;
 		this.nbsyll = nbsyll;
 		this.image = image;
-		Statistiques_mot = statistiques_mot;
 	}
 
 	public long getId() {
@@ -126,11 +124,11 @@ public class Mot {
 		this.nbsyll = nbsyll;
 	}
 
-	public Image getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(Image image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Exception.RessourceNotFoundException;
 import com.example.demo.repo.Liste_MotRepository;
 import com.example.demo.model.Liste_mot;
+import com.example.demo.model.Mot;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -38,19 +40,56 @@ public class Liste_MotController {
 		Liste_mot liste_mot = Liste_MotRepo.findById(liste_motID).orElseThrow(() -> new RessourceNotFoundException("La liste_mot n'a pas été trouvé pour cet ID ::" + liste_motID));
 		return ResponseEntity.ok().body(liste_mot);
 	}
+	
+	@GetMapping("liste_mot/mots/{name}")
+	public List<Mot> getMotByListe_MotName(@PathVariable(value = "name") String liste_motName)
+			throws RessourceNotFoundException {
+		
+		Liste_mot liste_mot = Liste_MotRepo.findListeByName(liste_motName);
+		return liste_mot.getMots();
+	}
+	
+	@GetMapping("liste_mot/name/{name}")
+	public ResponseEntity<Liste_mot> getListe_motByName(@PathVariable(value = "name") String liste_motName)
+			throws RessourceNotFoundException {
+		
+		Liste_mot liste_mot = Liste_MotRepo.findListeByName(liste_motName);
+		return ResponseEntity.ok().body(liste_mot);
+	}
+	
+	//TODO
+	
+	/*@PutMapping("liste_mot/updateliste/{name}")
+	public ResponseEntity<Liste_mot> addMotList(@Validated @RequestBody List<Mot> liste_mot, @PathVariable(value = "name") String liste_motName) {
+		Liste_mot ldm = this.Liste_MotRepo.findListeByName(liste_motName);
+		Iterator<Mot> iter = liste_mot.iterator();
+		Mot tmp;
+		while(iter.hasNext()) {
+			tmp = iter.next();
+			ldm.addMot(tmp);
+		}
+		return ResponseEntity.ok(this.Liste_MotRepo.save(ldm));
+		}*/ 
+	
 	@PostMapping("liste_mot")
 	public Liste_mot createListe_mot(@RequestBody Liste_mot liste_mot) {
+		Liste_mot ldm = this.Liste_MotRepo.findListeByName(liste_mot.getNom());
+		if(ldm != null ) {
+			return null;
+		}
 		return this.Liste_MotRepo.save(liste_mot);
 	}
 	@PutMapping("liste_mot/{id}")
 	public ResponseEntity<Liste_mot> updateListe_mot(@PathVariable(value = "id") Long liste_motID, @Validated @RequestBody Liste_mot liste_motdetails)
 			throws RessourceNotFoundException {
 		Liste_mot liste_mot = Liste_MotRepo.findById(liste_motID).orElseThrow(() -> new RessourceNotFoundException("La liste_mot n'a pas été trouvé pour cet ID ::" + liste_motID));
-		liste_mot.setNom(liste_motdetails.getNom());
+		liste_mot.setEnfant(liste_motdetails.getEnfant());
 		liste_mot.setMots_utilisés(liste_motdetails.getMots_utilisés());
 		liste_mot.setNb_tentative(liste_motdetails.getNb_tentative());
 		liste_mot.setNb_mot(liste_motdetails.getNb_mot());
-		
+		liste_mot.setMots(liste_motdetails.getMots());
+		liste_mot.setNom(liste_motdetails.getNom());
+		liste_mot.setImage(liste_motdetails.getImage());
 		return ResponseEntity.ok(this.Liste_MotRepo.save(liste_mot));
 		
 	}

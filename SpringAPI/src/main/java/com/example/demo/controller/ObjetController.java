@@ -37,6 +37,13 @@ public class ObjetController {
 		Objet objet = objetRepo.findById(objetID).orElseThrow(() -> new RessourceNotFoundException("L'objet n'a pas été trouvé pour cet ID ::" + objetID));
 		return ResponseEntity.ok().body(objet);
 	}
+	@GetMapping("objet/name/{name}")
+	public ResponseEntity<Objet> getObjetByName(@PathVariable(value = "name") String objetName)
+			throws RessourceNotFoundException {
+		
+		Objet objet = objetRepo.findObjetByName(objetName);
+		return ResponseEntity.ok().body(objet);
+	}
 	@PostMapping("objet")
 	public Objet createObjet(@RequestBody Objet objet) {
 		return this.objetRepo.save(objet);
@@ -46,7 +53,7 @@ public class ObjetController {
 			throws RessourceNotFoundException {
 		Objet objet = objetRepo.findById(objetID).orElseThrow(() -> new RessourceNotFoundException("L'objet n'a pas été trouvé pour cet ID ::" + objetID));
 		objet.setNom_objet(objetdetails.getNom_objet());
-		
+		objet.setType(objetdetails.getType());
 		return ResponseEntity.ok(this.objetRepo.save(objet));
 		
 	}

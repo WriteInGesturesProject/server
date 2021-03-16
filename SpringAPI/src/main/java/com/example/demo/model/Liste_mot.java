@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,13 +22,81 @@ public class Liste_mot {
 	@ManyToOne
     private Enfant enfant;
 	
-	@OneToOne
-    private Image image;
+	@Column
+    private String Image;
 	
 	@ManyToMany()
-    private Collection<Mot> mot ;
+    private List<Mot> mots ;
 	
 	
+	public Enfant getEnfant() {
+		return enfant;
+	}
+
+	public void setEnfant(Enfant enfant) {
+		this.enfant = enfant;
+	}
+	
+	public String getImage() {
+		return Image;
+	}
+
+	public void setImage(String image) {
+		Image = image;
+	}
+
+	public List<Mot> getMots() {
+		return mots;
+	}
+
+	public void setMots(List<Mot> mots) {
+		this.mots = mots;
+	}
+
+	public int getNb_mot() {
+		return nb_mot;
+	}
+
+	public void setNb_mot(int nb_mot) {
+		this.nb_mot = nb_mot;
+	}
+
+	public int getNb_tentative() {
+		return nb_tentative;
+	}
+
+	public void setNb_tentative(int nb_tentative) {
+		this.nb_tentative = nb_tentative;
+	}
+
+	public Mot[] getMots_utilisés() {
+		return mots_utilisés;
+	}
+
+	public void setMots_utilisés(Mot[] mots_utilisés) {
+		this.mots_utilisés = mots_utilisés;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public Liste_mot(Enfant enfant, String image, List<Mot> mots, int nb_mot, int nb_tentative, Mot[] mots_utilisés,String nom) {
+		super();
+		this.enfant = enfant;
+		this.Image = image;
+		this.mots = mots;
+		this.nb_mot = nb_mot;
+		this.nb_tentative = nb_tentative;
+		this.mots_utilisés = mots_utilisés;
+		this.nom = nom;
+	}
+
+
 	@Column(name="nb_mot")
 	
 	private int nb_mot;
@@ -55,75 +121,13 @@ public class Liste_mot {
 		this.id = id;
 	}
 
-	public Enfant getEnfant() {
-		return enfant;
-	}
-
-	public void setEnfant(Enfant enfant) {
-		this.enfant = enfant;
-	}
-
-	public int getNb_mot() {
-		return nb_mot;
-	}
-
-	public void setNb_mot(int nb_mot) {
-		this.nb_mot = nb_mot;
-	}
-
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public Liste_mot(Enfant enfant, int nb_mot, String nom,Image image, Mot[] mots_utilisé, int nb_tentative) {
-		super();
-		this.enfant = enfant;
-		this.nb_mot = nb_mot;
-		this.nom = nom;
-		this.image = image;
-		this.nb_tentative = nb_tentative;
-		this.mots_utilisés = mots_utilisé;
-		}
-
-	public Image getImage() {
-		return image;
-	}
-
-	public void setImage(Image image) {
-		this.image = image;
-	}
-
-	public Collection<Mot> getMot() {
-		return mot;
-	}
-
-	public void setMot(Collection<Mot> mot) {
-		this.mot = mot;
-	}
-
-	public int getNb_tentative() {
-		return nb_tentative;
-	}
-
-	public void setNb_tentative(int nb_tentative) {
-		this.nb_tentative = nb_tentative;
-	}
-
-	public Mot[] getMots_utilisés() {
-		return mots_utilisés;
-	}
-
-	public void setMots_utilisés(Mot[] mots_utilisés) {
-		this.mots_utilisés = mots_utilisés;
-	}
 
 	public Liste_mot() {
 		super();
 	}
 	
+	public void addMot(Mot mot) {
+		this.mots.add(mot);
+	}
 
 }

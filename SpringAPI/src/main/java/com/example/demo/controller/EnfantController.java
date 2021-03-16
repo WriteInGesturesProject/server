@@ -20,8 +20,8 @@ import com.example.demo.Exception.RessourceNotFoundException;
 import com.example.demo.repo.EnfantRepository;
 import com.example.demo.repo.OrthophonisteRepository;
 import com.example.demo.model.Enfant;
+import com.example.demo.model.Objet;
 import com.example.demo.model.Orthophoniste;
-import com.example.demo.controller.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -55,6 +55,14 @@ public class EnfantController {
 
 	}
 	
+	@GetMapping("enfant/objets/{login}")
+	public List<Objet> getMotByListe_MotName(@PathVariable(value = "login") String enfantLogin)
+			throws RessourceNotFoundException {
+		
+		Enfant enfant = enfantRepo.getLoginEnfant(enfantLogin);
+		return enfant.getObjet();
+	}
+	
 	@GetMapping("enfant/login/{login}")
 	public Enfant getEnfantByLogin(@PathVariable(value = "login") String login)
 			throws RessourceNotFoundException {
@@ -80,6 +88,10 @@ public class EnfantController {
 	}
 	@PostMapping("enfant")
 	public Enfant createEnfant(@RequestBody Enfant enfant) {
+		Enfant tmp = this.enfantRepo.getLoginEnfant(enfant.getLogin());
+		if(tmp !=  null) {
+			return null;
+		}
 		return this.enfantRepo.save(enfant);
 	}
 	@PutMapping("enfant/{id}")
@@ -102,6 +114,7 @@ public class EnfantController {
 	@DeleteMapping("enfant/{id}")
 	public Map<String, Boolean> deleteEnfant (@PathVariable(value = "id") Long enfantID ) throws RessourceNotFoundException{
 		Enfant enfant = enfantRepo.findById(enfantID).orElseThrow(() -> new RessourceNotFoundException("L'enfant n'a pas été trouvé pour cet ID ::" + enfantID));
+		enfant.setOrthophoniste(null);
 		this.enfantRepo.delete(enfant);
 		Map <String, Boolean> map = new HashMap<>();
 		map.put("deleted", Boolean.TRUE);
