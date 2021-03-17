@@ -18,7 +18,19 @@ public class Objet {
 	
 	private String nom_objet;
 	
+	@Column
 	
+	private String type;
+	
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public Objet() {
 		super();
 			}
@@ -39,9 +51,10 @@ public class Objet {
 		this.nom_objet = nom_objet;
 	}
 
-	public Objet(String nom_objet) {
+	public Objet(String nom_objet,String type) {
 		super();
 		this.nom_objet = nom_objet;
+		this.type = type;
 	}
 
 	

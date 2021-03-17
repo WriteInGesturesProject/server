@@ -1,11 +1,5 @@
 package com.example.demo.model;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
-@Entity
+@Entity	
 @Table(name = "image")
 public class Image {
 	@Id
@@ -22,7 +16,7 @@ public class Image {
 	
 	private long id;
 	
-	@Column(name="nom")
+	@Column(name ="nom")
 	
 	private String nom;
 	
@@ -76,7 +70,9 @@ public class Image {
 	public void setImage(byte[] byteArray){
 		this.image = byteArray;
 	}
-	
+	public boolean equalName(String name) {
+		return this.getNom() == name;
+	}
 	
 	
 	
