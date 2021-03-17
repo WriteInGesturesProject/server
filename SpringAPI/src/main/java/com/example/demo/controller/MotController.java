@@ -27,15 +27,21 @@ public class MotController {
 	@GetMapping("mot")
 	public List<Mot> getAllMot(){
 		return this.motRepo.findAll();
-		
 	}
-	@GetMapping("mot/{id}")
-	public ResponseEntity<Mot> getMotByID(@PathVariable(value = "id") Long motID)
+	
+	@GetMapping("mot/{name}")
+	public List <Mot> getMotByName(@PathVariable(value = "name") String motName)
 			throws RessourceNotFoundException {
-		
-		Mot mot = motRepo.findById(motID).orElseThrow(() -> new RessourceNotFoundException("Le mot n'a pas été trouvé pour cet ID ::" + motID));
-		return ResponseEntity.ok().body(mot);
+		return this.motRepo.findMotByOrtho(motName);
 	}
+	
+	@GetMapping("mot/phonetic/{name}")
+	public String getMotPhoneticByName(@PathVariable(value = "name") String motName)
+			throws RessourceNotFoundException {
+		List <Mot> Mots = this.motRepo.findMotByOrtho(motName);
+		return Mots.get(0).getPhon();
+	}
+	
 	@PostMapping("mot")
 	public Mot createMot(@RequestBody Mot mot) {
 		return this.motRepo.save(mot);
@@ -44,11 +50,14 @@ public class MotController {
 	public ResponseEntity<Mot> updateMot(@PathVariable(value = "id") Long motID, @Validated @RequestBody Mot motdetails)
 			throws RessourceNotFoundException {
 		Mot mot = motRepo.findById(motID).orElseThrow(() -> new RessourceNotFoundException("Le mot n'a pas été trouvé pour cet ID ::" + motID));
-		mot.setName(motdetails.getName());
-		mot.setNbSyllable(motdetails.getNbSyllable());
-		mot.setSyllableStruct(motdetails.getSyllableStruct());
-		mot.setPhonetic(motdetails.getPhonetic());
-		
+		mot.setOrtho(motdetails.getOrtho());
+		mot.setPhon(motdetails.getPhon());
+		mot.setCgram(motdetails.getCgram());
+		mot.setFreqfilms2(motdetails.getFreqfilms2());
+		mot.setNbphons(motdetails.getNbphons());
+		mot.setP_cvcv(motdetails.getP_cvcv());
+		mot.setNbsyll(motdetails.getNbsyll());
+		mot.setImage(motdetails.getImage());
 		return ResponseEntity.ok(this.motRepo.save(mot));
 		
 	}

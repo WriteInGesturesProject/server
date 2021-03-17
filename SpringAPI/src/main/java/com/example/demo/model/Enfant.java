@@ -1,15 +1,16 @@
 package com.example.demo.model;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -28,9 +29,19 @@ public class Enfant {
     private Set<Statistique_mot> Statistiques_mot = new HashSet<Statistique_mot>();
 	
 	@ManyToMany()
-    private Collection<Objet> objet ;
+    private List<Objet> objet ;
 	
-	@ManyToOne
+	@OneToMany
+	@JoinColumn(name="id_enfant")
+	private List<Liste_mot> listes_mot;
+	
+	public void addliste_mot(Liste_mot liste) {
+		liste.setEnfant(this);
+		listes_mot.add(liste) ;}
+	
+	public List<Liste_mot> getListes_Mot() {return listes_mot;}
+	
+	@ManyToOne ()
     private Orthophoniste orthophoniste;
 	
 	@Column(name="nom")
@@ -59,14 +70,8 @@ public class Enfant {
 	
 	@Column(name="login")
 	
-	private int login;
+	private String login;
 	
-	public Collection<Objet> getAvatar() {
-		return objet;
-	}
-	public void setAvatar(Collection<Objet> objet) {
-		this.objet = objet;
-	}
 	@Column(name="nb_etoile")
 	
 	private int nb_etoile;
@@ -76,8 +81,9 @@ public class Enfant {
 	private String password;
 	
 	
-	public Enfant(long id, String nom, String prenom, String sexe, int age, int id_ortho, int[] id_objet, int login,
-			String password, int nb_etoile,Orthophoniste ortho,String ethnicite, Collection<Objet> objet,Set <Statistique_mot> stats) {
+
+	public Enfant(long id, String nom, String prenom, String sexe, int age, int[] id_objet, String login,
+			String password, int nb_etoile,Orthophoniste ortho,String ethnicite, List<Objet> objet) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -88,15 +94,15 @@ public class Enfant {
 		this.login = login;
 		this.password = password;
 		this.nb_etoile = nb_etoile;
+		ortho.addEnfant(this);
 		this.orthophoniste = ortho;
 		this.objet = objet;
-		this.Statistiques_mot = stats;
 		}
-	public Collection<Objet> getObjet() {
+	public List<Objet> getObjet() {
 		return objet;
 	}
-	public void setObjet(Collection<Objet> objet) {
-		this.objet = objet;
+	public void addObjet(Objet objet) {
+		this.objet.add(objet);
 	}
 	public String getEthnicite() {
 		return ethnicite;
@@ -140,9 +146,10 @@ public class Enfant {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public Orthophoniste getOrthophoniste() {
-		return orthophoniste;
+	public long getOrthophoniste() {
+		return orthophoniste.getId();
 	}
+
 	public void setOrthophoniste(Orthophoniste orthophoniste) {
 		this.orthophoniste = orthophoniste;
 	}
@@ -152,10 +159,10 @@ public class Enfant {
 	public void setId_objet(int[] id_objet) {
 		this.id_objet = id_objet;
 	}
-	public int getLogin() {
+	public String getLogin() {
 		return login;
 	}
-	public void setLogin(int login) {
+	public void setLogin(String login) {
 		this.login = login;
 	}
 	public String getPassword() {
