@@ -33,3 +33,6 @@ build/
 .vscode/
 
 .metadata/
+
+###SSL###
+/src/main/resources/Cert.p12

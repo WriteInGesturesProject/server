@@ -81,6 +81,7 @@ public class Enfant {
 	private String password;
 	
 	
+
 	public Enfant(long id, String nom, String prenom, String sexe, int age, int[] id_objet, String login,
 			String password, int nb_etoile,Orthophoniste ortho,String ethnicite, List<Objet> objet) {
 		super();
