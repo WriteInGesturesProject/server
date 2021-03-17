@@ -20,6 +20,7 @@
 * Taille : Standard B1s
 * Processeur : 1 (Virtuel)
 * RAM : 1 Gio
+* Date de fin du certificat SSL : 13/06/2021
 
 ## Mise en place du serveur :  
 
@@ -38,10 +39,10 @@ Dans notre cas, nous avons choisi comme herbergeur *Microsoft Azure* et comme sy
     
 3. Optionnel : SI vous devez supprimer la table vous devez tout d'abord vérifier qu'aucune session n'est ouverte, si c'est le cas faite :  
 
-    SELECT pg_terminate_backend(pg_stat_activity.pid)
-    FROM pg_stat_activity  
-    WHERE pg_stat_activity.datname = 'NOM BDD' -- ← Change avec votre BDD  
-    AND pid <> pg_backend_pid();
+        SELECT pg_terminate_backend(pg_stat_activity.pid)
+        FROM pg_stat_activity  
+        WHERE pg_stat_activity.datname = 'NOM BDD' -- ← Change avec votre BDD  
+        AND pid <> pg_backend_pid();
     
     Puis une fois fait, supprimer la base avec la commande ci-jointe :  
     
@@ -87,7 +88,7 @@ Deux possibilitées :
 4. S'assurer que l'accès au site est bien en HTTPS
 
 #### 2. Certificat distribué par une CA
-1. Utiliser la CA **Let's Encrypt** afin d'obtenir notre certificat officialisé  
+1. Utiliser la CA **Let's Encrypt** afin d'obtenir notre certificat officialisé 
     *Lien utile : https://letsencrypt.org/fr/*
 2. Convertir notre jeu de clé obtenu en certificat PCKS12  
 `openssl pkcs12 -export -out Cert.p12 -in TOCOMPLETE -inkey TOCOMPLETE -passin pass:TOCOMPLETE -passout pass:TOCOMPLETE`
@@ -101,6 +102,13 @@ Deux possibilitées :
         security.require-ssl=true
  
  4. S'assurer que l'accès au site est bien en HTTPS
+
+**Informations complémentaires :**  
+Attention, le certificat SSL délivré par Let's Encrypt est d'une durée de 3 mois.
+
+Pour renouveler le certificat SSL déja existant, voici la commande a utiliser :
+`sudo certbot renew --dry-run`  
+*Lien utile : https://certbot.eff.org/lets-encrypt/ubuntubionic-other* 
 
 ### Objectifs :
 - API (*DONE*)
