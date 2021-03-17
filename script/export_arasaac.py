@@ -22,18 +22,19 @@ for i in range(len(lexique.index)):
         current_word = lexique["ortho"][i]
     else:
         current_word = lexique["lemme"][i]
-
+    
+    current_word = str(current_word)
     if current_word in all_image_name:
         continue
 
-    current_word = str(current_word)
-    current_word = unidecode.unidecode(current_word)
+    
     all_image_name.append(current_word)
 
     bestSearchResponse = requests.get(ARASAAC_API_URL_BEST_SEARCH_FR + current_word)
     if bestSearchResponse.status_code != 200:
         continue
-
+    
+    current_word = unidecode.unidecode(current_word)
     image_id = bestSearchResponse.json()[0]["_id"]
 
     pictogramsResponse = requests.get(ARASAAC_API_URL_PICTOGRAMS + str(image_id))
