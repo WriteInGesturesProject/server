@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -20,6 +21,7 @@ public class Liste_mot {
 	private long id;
 	
 	@ManyToOne
+	@JoinColumn(name="id_enfant")
     private Enfant enfant;
 	
 	@Column
@@ -29,8 +31,8 @@ public class Liste_mot {
     private List<Mot> mots ;
 	
 	
-	public Enfant getEnfant() {
-		return enfant;
+	public long getEnfant() {
+		return enfant.getId();
 	}
 
 	public void setEnfant(Enfant enfant) {
@@ -87,7 +89,6 @@ public class Liste_mot {
 
 	public Liste_mot(Enfant enfant, String image, List<Mot> mots, int nb_mot, int nb_tentative, Mot[] mots_utilisés,String nom) {
 		super();
-		this.enfant = enfant;
 		this.Image = image;
 		this.mots = mots;
 		this.nb_mot = nb_mot;

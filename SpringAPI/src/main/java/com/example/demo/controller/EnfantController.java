@@ -20,6 +20,7 @@ import com.example.demo.Exception.RessourceNotFoundException;
 import com.example.demo.repo.EnfantRepository;
 import com.example.demo.repo.OrthophonisteRepository;
 import com.example.demo.model.Enfant;
+import com.example.demo.model.Liste_mot;
 import com.example.demo.model.Objet;
 import com.example.demo.model.Orthophoniste;
 
@@ -31,6 +32,7 @@ public class EnfantController {
 	
 	@Autowired
 	private OrthophonisteRepository OrthoRepo;
+	
 	@GetMapping("enfant")
 	public List<Enfant> getAllEnfant(){
 		return this.enfantRepo.findAll();
@@ -86,6 +88,14 @@ public class EnfantController {
 		return OrthoRepo.findById(id).orElseThrow(() -> new RessourceNotFoundException("L'orthophoniste n'a pas été trouvé pour cet ID ::" + id));
 		
 	}
+	
+	@GetMapping("enfant/liste_mot/{login}")
+	public List <Liste_mot> getListe_motByEnfantName(@PathVariable(value = "login") String login)
+			throws RessourceNotFoundException {
+		return this.enfantRepo.getLoginEnfant(login).getListes_Mot();
+
+	}
+	
 	@PostMapping("enfant")
 	public Enfant createEnfant(@RequestBody Enfant enfant) {
 		Enfant tmp = this.enfantRepo.getLoginEnfant(enfant.getLogin());

@@ -47,7 +47,6 @@ public class OrthophonisteController {
 	public List <Enfant> getEnfantsByName(@PathVariable(value = "name") String name)
 			throws RessourceNotFoundException {
 		return this.orthophonisteRepo.getNameOrtho(name).getEnfants();
-
 	}
 	
 	@GetMapping("orthophoniste/name/{name}")

@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Exception.RessourceNotFoundException;
+import com.example.demo.repo.EnfantRepository;
 import com.example.demo.repo.Liste_MotRepository;
+import com.example.demo.model.Enfant;
 import com.example.demo.model.Liste_mot;
 import com.example.demo.model.Mot;
 
@@ -27,6 +29,9 @@ import com.example.demo.model.Mot;
 public class Liste_MotController {
 	@Autowired
 	private Liste_MotRepository Liste_MotRepo;
+	
+	@Autowired
+	private EnfantRepository enfantRepo;
 	
 	@GetMapping("liste_mot")
 	public List<Liste_mot> getAllListe_mot(){
@@ -57,9 +62,17 @@ public class Liste_MotController {
 		return ResponseEntity.ok().body(liste_mot);
 	}
 	
-	//TODO
+	@GetMapping("liste_mot/enfant/{name}")
+	public Enfant FromList(@PathVariable(value = "name") String name)
+			throws RessourceNotFoundException {
+		return enfantRepo.findById(Liste_MotRepo.findListeByName(name).getEnfant()).orElseThrow(() -> new RessourceNotFoundException("L'orthophoniste n'a pas été trouvé pour cet ID ::"));
 	
-	/*@PutMapping("liste_mot/updateliste/{name}")
+		
+	}
+	
+	
+	
+	@PutMapping("liste_mot/updateliste/{name}")
 	public ResponseEntity<Liste_mot> addMotList(@Validated @RequestBody List<Mot> liste_mot, @PathVariable(value = "name") String liste_motName) {
 		Liste_mot ldm = this.Liste_MotRepo.findListeByName(liste_motName);
 		Iterator<Mot> iter = liste_mot.iterator();
@@ -69,7 +82,7 @@ public class Liste_MotController {
 			ldm.addMot(tmp);
 		}
 		return ResponseEntity.ok(this.Liste_MotRepo.save(ldm));
-		}*/ 
+		}
 	
 	@PostMapping("liste_mot")
 	public Liste_mot createListe_mot(@RequestBody Liste_mot liste_mot) {
@@ -83,7 +96,6 @@ public class Liste_MotController {
 	public ResponseEntity<Liste_mot> updateListe_mot(@PathVariable(value = "id") Long liste_motID, @Validated @RequestBody Liste_mot liste_motdetails)
 			throws RessourceNotFoundException {
 		Liste_mot liste_mot = Liste_MotRepo.findById(liste_motID).orElseThrow(() -> new RessourceNotFoundException("La liste_mot n'a pas été trouvé pour cet ID ::" + liste_motID));
-		liste_mot.setEnfant(liste_motdetails.getEnfant());
 		liste_mot.setMots_utilisés(liste_motdetails.getMots_utilisés());
 		liste_mot.setNb_tentative(liste_motdetails.getNb_tentative());
 		liste_mot.setNb_mot(liste_motdetails.getNb_mot());

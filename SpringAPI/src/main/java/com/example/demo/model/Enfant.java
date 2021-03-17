@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -30,6 +30,16 @@ public class Enfant {
 	
 	@ManyToMany()
     private List<Objet> objet ;
+	
+	@OneToMany
+	@JoinColumn(name="id_enfant")
+	private List<Liste_mot> listes_mot;
+	
+	public void addliste_mot(Liste_mot liste) {
+		liste.setEnfant(this);
+		listes_mot.add(liste) ;}
+	
+	public List<Liste_mot> getListes_Mot() {return listes_mot;}
 	
 	@ManyToOne ()
     private Orthophoniste orthophoniste;
@@ -138,6 +148,7 @@ public class Enfant {
 	public long getOrthophoniste() {
 		return orthophoniste.getId();
 	}
+
 	public void setOrthophoniste(Orthophoniste orthophoniste) {
 		this.orthophoniste = orthophoniste;
 	}
