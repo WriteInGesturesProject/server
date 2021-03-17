@@ -71,12 +71,13 @@ public class Liste_MotController {
 	}
 	
 	
-	
+	//envoyez la liste des Mot que vous voulez ajouter nommée "mots" en body. Exemple : "mots" : [{"id" : 3},{"id": 4}] 
 	@PutMapping("liste_mot/updateliste/{name}")
-	public ResponseEntity<Liste_mot> addMotList(@Validated @RequestBody List<Mot> liste_mot, @PathVariable(value = "name") String liste_motName) {
+	public ResponseEntity<Liste_mot> addMotList(@Validated @RequestBody Liste_mot liste_mot, @PathVariable(value = "name") String liste_motName) {
 		Liste_mot ldm = this.Liste_MotRepo.findListeByName(liste_motName);
-		Iterator<Mot> iter = liste_mot.iterator();
+		Iterator<Mot> iter = liste_mot.getMots().iterator();
 		Mot tmp;
+		System.out.println(1);
 		while(iter.hasNext()) {
 			tmp = iter.next();
 			ldm.addMot(tmp);
@@ -99,7 +100,6 @@ public class Liste_MotController {
 		liste_mot.setMots_utilisés(liste_motdetails.getMots_utilisés());
 		liste_mot.setNb_tentative(liste_motdetails.getNb_tentative());
 		liste_mot.setNb_mot(liste_motdetails.getNb_mot());
-		liste_mot.setMots(liste_motdetails.getMots());
 		liste_mot.setNom(liste_motdetails.getNom());
 		liste_mot.setImage(liste_motdetails.getImage());
 		return ResponseEntity.ok(this.Liste_MotRepo.save(liste_mot));

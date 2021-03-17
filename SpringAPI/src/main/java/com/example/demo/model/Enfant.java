@@ -100,8 +100,8 @@ public class Enfant {
 	public List<Objet> getObjet() {
 		return objet;
 	}
-	public void setObjet(List<Objet> objet) {
-		this.objet = objet;
+	public void addObjet(Objet objet) {
+		this.objet.add(objet);
 	}
 	public String getEthnicite() {
 		return ethnicite;

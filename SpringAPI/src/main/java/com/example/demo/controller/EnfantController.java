@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ import com.example.demo.repo.EnfantRepository;
 import com.example.demo.repo.OrthophonisteRepository;
 import com.example.demo.model.Enfant;
 import com.example.demo.model.Liste_mot;
+import com.example.demo.model.Mot;
 import com.example.demo.model.Objet;
 import com.example.demo.model.Orthophoniste;
 
@@ -104,6 +106,20 @@ public class EnfantController {
 		}
 		return this.enfantRepo.save(enfant);
 	}
+	
+	@PutMapping("enfant/updatelisteobjet/{login}")
+	public ResponseEntity<Enfant> addMotList(@Validated @RequestBody Enfant enfant, @PathVariable(value = "login") String login) {
+		Enfant enf = this.enfantRepo.getLoginEnfant(login);
+		Iterator<Objet> iter = enf.getObjet().iterator();
+		Objet tmp;
+		System.out.println(1);
+		while(iter.hasNext()) {
+			tmp = iter.next();
+			enf.addObjet(tmp);
+		}
+		return ResponseEntity.ok(this.enfantRepo.save(enf));
+		}
+	
 	@PutMapping("enfant/{id}")
 	public ResponseEntity<Enfant> updateEnfant(@PathVariable(value = "id") Long enfantID, @Validated @RequestBody Enfant enfantdetails)
 			throws RessourceNotFoundException {

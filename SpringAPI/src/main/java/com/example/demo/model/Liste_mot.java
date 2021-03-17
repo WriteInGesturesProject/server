@@ -51,8 +51,8 @@ public class Liste_mot {
 		return mots;
 	}
 
-	public void setMots(List<Mot> mots) {
-		this.mots = mots;
+	public void addMots(Mot mot) {
+		this.mots.add(mot);
 	}
 
 	public int getNb_mot() {
