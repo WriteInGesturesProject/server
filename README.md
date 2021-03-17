@@ -16,7 +16,7 @@
 * Système Exploitation : Serveur Ubuntu 18.04
 * Adresse Publique : **51.124.109.83**
 * Port HTTPS : **8443**
-* DNS : Pas défini
+* DNS : **artiphonie.westeurope.cloudapp.azure.com**
 * Taille : Standard B1s
 * Processeur : 1 (Virtuel)
 * RAM : 1 Gio
@@ -57,3 +57,55 @@ Dans notre cas, nous avons choisi comme herbergeur *Microsoft Azure* et comme sy
     
     **Informations complémentaires :**  
     Il est possible qu'il vous manque le JDK compatible avec l'application, pour cela nous avons codé l'API sous JAVA 11 donc installer le **JDK 11** sur le serveur à l'aide du lien suivant : https://doc.ubuntu-fr.org/openjdk
+
+### Installation certificat SSL et configuration :
+
+Deux possibilitées :
+- Soit nous créons un certificat auto-signé (Utilisable pour une phase de test)
+- Soit nous créons un certificat délivré par une CA (Obtention d'un certificat officiel)
+
+#### 1. Certificat auto-signé
+1. Générer un certificat SSL dans un keystore  
+    `keytool -genkeypair -alias TOCOMPLETE -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore keystore.p12 -validity 3650 -storepass TOCOMPLETE`  
+    Nous avons choisi le format PKCS12 au lieu de JKS pour une meilleure compatibilité avec l'API en Spring. Java ne peut traiter que des certificats en PKCS12.
+2. Configurer HTTPS dans Spring Boot
+    Dans le fichier 'application.properties' ajouter les lignes suivantes :  
+    
+        server.port=8443
+        server.ssl.key-store-type=PKCS12
+        server.ssl.key-store=classpath:keystore.p12
+        server.ssl.key-store-password=TOCOMPLETE
+        server.ssl.key-alias=TOCOMPLETE
+        security.require-ssl=true
+  
+3. Distribuer le certificats SSL aux clients  
+    Transformer notre clé PKCS12 en certificat CRT :  
+    `keytool -export -keystore keystore.jks -alias TOCOMPLETE -file myCertificate.crt`
+    
+    Installer le certificat obtenu sur notre machine client
+
+4. S'assurer que l'accès au site est bien en HTTPS
+
+#### 2. Certificat distribué par une CA
+1. Utiliser la CA **Let's Encrypt** afin d'obtenir notre certificat officialisé  
+    *Lien utile : https://letsencrypt.org/fr/*
+2. Convertir notre jeu de clé obtenu en certificat PCKS12  
+`openssl pkcs12 -export -out Cert.p12 -in TOCOMPLETE -inkey TOCOMPLETE -passin pass:TOCOMPLETE -passout pass:TOCOMPLETE`
+3. Configurer HTTPS dans Spring Boot
+    Dans le fichier 'application.properties' ajouter les lignes suivantes :  
+    
+        server.port=8443
+        server.ssl.key-store-type=PKCS12
+        server.ssl.key-store=classpath:Cert.p12
+        server.ssl.key-store-password=TOCOMPLETE
+        security.require-ssl=true
+ 
+ 4. S'assurer que l'accès au site est bien en HTTPS
+
+### Objectifs :
+- API (*DONE*)
+- BDD (*DONE*)
+- HTTPS (*DONE*)
+- RGPD (**TO DO**)
+- Cryptage BDD (**TO DO**)
+- Site Web (**TO DO**)
