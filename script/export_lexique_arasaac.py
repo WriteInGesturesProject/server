@@ -55,8 +55,7 @@ for i in range(0, len(lexique.index)):
     else:
         currentImageName = str(lexique["lemme"][i])
 
-    currentImageName = unidecode.unidecode(currentImageName)
-    currentWord.add("image", currentImageName)
+    currentWord.add("image", unidecode.unidecode(currentImageName))
 
     currentRequest = requests.post(
         API_URL_MOT,
@@ -75,6 +74,8 @@ for i in range(0, len(lexique.index)):
     bestSearchResponse = requests.get(ARASAAC_API_URL_BEST_SEARCH_FR + currentImageName)
     if bestSearchResponse.status_code != 200:
         continue
+       
+    currentImageName = unidecode.unidecode(currentImageName)
 
     imageId = bestSearchResponse.json()[0]["_id"]
 
