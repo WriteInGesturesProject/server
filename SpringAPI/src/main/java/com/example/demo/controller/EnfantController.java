@@ -108,7 +108,7 @@ public class EnfantController {
 	}
 	
 	@PutMapping("enfant/updatelisteobjet/{login}")
-	public ResponseEntity<Enfant> addMotList(@Validated @RequestBody Enfant enfant, @PathVariable(value = "login") String login) {
+	public ResponseEntity<Enfant> addObjetEnfant(@Validated @RequestBody Enfant enfant, @PathVariable(value = "login") String login) {
 		Enfant enf = this.enfantRepo.getLoginEnfant(login);
 		Iterator<Objet> iter = enf.getObjet().iterator();
 		Objet tmp;
